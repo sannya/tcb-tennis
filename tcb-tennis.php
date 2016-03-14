@@ -1,84 +1,45 @@
 <?php
-
-/*
-Plugin Name: Tennisclub Bodenwerder e.V.
-Plugin URI: http://www.raumvisionen.de
-Description: Plugin zur Verwaltung von Spielplänen und Spielern des Vereins ***
-Version: 1.0
-Author: Alexander Siewert
-Text Domain: tcb
-Domain Path:/locale/
-Author URI: http://www.raumvisionen.de
-License: GPL2
-*/
-
-
-
-register_activation_hook( __FILE__, 'tcb_create_plugin_tables' );
 /**
- * Create new Table in Database, if not exist
+ * * The file responsible for starting the Single Post Meta Manager plugin
+ *
+ * The Single Post Meta Manager is a plugin that displays the post meta data
+ * associated with a given post. This particular file is responsible for
+ * including the necessary dependencies and starting the plugin.
+ *
+ *
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Tennisclub Bodenwerder e.V.
+ * Plugin URI:        http://www.raumvisionen.de
+ * Description:       Plugin zur Verwaltung von Spielplänen und Spielern des Vereins ***
+ * Version:           0.1.0
+ * Author:            Alexander Siewert
+ * Author URI:        http://www.raumvisionen.de
+ * Text Domain:       tcb
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Domain Path:       /languages
  */
-function tcb_create_plugin_tables()
-{
-    global $wpdb;
 
-    $table_name = $wpdb->prefix . 'tcb';
-
-    $sql = "CREATE TABLE $table_name (
-      id int(11) NOT NULL AUTO_INCREMENT,
-      name varchar(255) DEFAULT NULL,
-      UNIQUE KEY id (id),
-    );";
-
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-    dbDelta( $sql );
+if ( ! defined( 'WPINC' ) ) {
+    die;
 }
-
-
-add_action( 'plugins_loaded', 'loads_plugin_textdomain' );
 
 /**
- * loads the textdomain for translation
+ * Include the core class responsible for loading all necessary components of the plugin.
  */
-function loads_plugin_textdomain() {
-    load_plugin_textdomain( 'tcb', false, dirname( plugin_basename(__FILE__) ) . '/locale/' );
-}
-
-
-
-add_action('admin_menu', 'register_admin_menu');
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-tcb-tennis.php';
 
 /**
- * Register a custom menu page.
+ * Instantiates the Single Post Meta Manager class and then
+ * calls its run method officially starting up the plugin.
  */
-function register_admin_menu()
-{
-    add_menu_page(
-        __('page-title', 'tcb'),
-        __('menu-title', 'tcb'),
-        'manage_options',
-        'tcb',
-        'include_admin_page',
-        'dashicons-awards',
-        50                              // Reihenfolge, in der der Menüpunkt erscheint
-    );
+function run_tcb_tennis() {
 
-    add_submenu_page(
-        'tcb',
-        __('page-title', 'tcb'),
-        __('submenu-title', 'tcb'),
-        'manage_options',
-        'verwaltung',
-        'include_subpage'
-    );
+    $spmm = new Tcb_Tennis();
+    $spmm->run();
+
 }
 
-function include_admin_page() {
-    include(plugin_dir_path( __FILE__ ).'tcb-admin.php');
-}
-
-
-
-function include_subpage() {
-    include(plugin_dir_path( __FILE__ ).'tcb-verwaltung.php');
-}
+// Call the above function to begin execution of the plugin.
+run_tcb_tennis();
