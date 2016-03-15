@@ -1,6 +1,5 @@
 <?php
 
-echo 'ddddd';
 
 class Tcb_Mannschaften {
 
