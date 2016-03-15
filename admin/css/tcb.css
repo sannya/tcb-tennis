@@ -1,0 +1,10 @@
+.small {
+    max-width:50px;
+}
+
+table.spielplan thead td,table.spielplan td.bold {
+    font-weight:700;
+}
+span.colon {
+    padding:0 0px 0 3px;
+}

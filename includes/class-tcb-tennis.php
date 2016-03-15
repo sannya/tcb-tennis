@@ -63,16 +63,12 @@ class Tcb_Tennis {
     private function load_dependencies() {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/tcb-admin.php';
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/tcb-mannschaften.php';
-
-        require_once plugin_dir_path( __FILE__ ) . 'class-tcb-loader.php';
+                require_once plugin_dir_path( __FILE__ ) . 'class-tcb-loader.php';
         $this->loader = new Tcb_Loader();
     }
 
     /**
      *
-     * This function relies on the Single Post Meta Manager Admin class and the Single Post Meta Manager
-     * Loader class property.
      *
      * @access    private
      */

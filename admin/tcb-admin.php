@@ -47,6 +47,8 @@ class Tcb_Admin {
             $this->version,
             FALSE
         );
+
+        wp_enqueue_script('jquery-ui-autocomplete');
     }
 
 //    /**
@@ -55,6 +57,13 @@ class Tcb_Admin {
 //    public function load_textdomain() {
 //        load_plugin_textdomain( 'tcb', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
 //    }
+
+    function the_view() {
+        $id = get_the_ID();
+        $page_view = stats_get_csv('postviews', 'days=-1&post_id='.$id.'');
+        echo $page_view[0]['views'];
+    }
+
 
     /**
      * Register a custom menu page.
@@ -71,22 +80,22 @@ class Tcb_Admin {
             50                              // Reihenfolge, in der der Menüpunkt erscheint
         );
 
-        add_submenu_page(
+  /*      add_submenu_page(
             'tcb',
             __('page-title', 'tcb'),
             __('Mannschaften', 'tcb'),
             'manage_options',
             'Mannschaft',
             'include_submenu_page'
-        );
+        );*/
 
         function include_admin_page() {
-            include(plugin_dir_path( __FILE__ ).'../templates/spielplan.php');
+            include(plugin_dir_path( __FILE__ ).'/spielplan.php');
         }
 
-        function include_submenu_page() {
-            include(plugin_dir_path( __FILE__ ).'../templates/mannschaften.php');
-        }
+//        function include_submenu_page() {
+//            include(plugin_dir_path( __FILE__ ).'../templates/mannschaften.php');
+//        }
 
     }
 }
