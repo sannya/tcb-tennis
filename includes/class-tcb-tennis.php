@@ -7,7 +7,7 @@ class Tcb_Tennis {
      * throughout the plugin.
      *
      * @access protected
-     * @var    Single_Post_Meta_Manager_Loader   $loader    Manages hooks between the WordPress hooks and the callback functions.
+     * @var    Tcb_Loader   $loader    Manages hooks between the WordPress hooks and the callback functions.
      */
     protected $loader;
 
@@ -63,13 +63,13 @@ class Tcb_Tennis {
     private function load_dependencies() {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/tcb-admin.php';
 
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/tcb-mannschaften.php';
+
         require_once plugin_dir_path( __FILE__ ) . 'class-tcb-loader.php';
         $this->loader = new Tcb_Loader();
     }
 
     /**
-     * Defines the hooks and callback functions that are used for setting up the plugin stylesheets
-     * and the plugin's meta box.
      *
      * This function relies on the Single Post Meta Manager Admin class and the Single Post Meta Manager
      * Loader class property.
@@ -79,7 +79,7 @@ class Tcb_Tennis {
     private function define_admin_hooks() {
         $admin = new Tcb_Admin( $this->get_version() );
         $this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
-        $this->loader->add_action( 'add_meta_boxes', $admin, 'add_meta_box' );
+        $this->loader->add_action( 'admin_menu', $admin, 'register_admin_menu' );
     }
 
     /**
@@ -100,6 +100,11 @@ class Tcb_Tennis {
      */
     public function get_version() {
         return $this->version;
+    }
+
+    public function load_plugin_textdomain()
+    {
+        load_plugin_textdomain('tcb', FALSE, dirname(plugin_basename(__FILE__)).'/languages/');
     }
 
 }

@@ -39,95 +39,54 @@ class Tcb_Admin {
             $this->version,
             FALSE
         );
-    }
 
-    /**
-     * Registers the meta box that will be used to display all of the post meta data
-     * associated with the current post.
-     */
-    public function add_meta_box() {
-        add_meta_box(
-            'single-post-meta-manager-admin',
-            'Single Post Meta Manager',
-            array( $this, 'render_meta_box' ),
-            'post',
-            'normal',
-            'core'
+        wp_enqueue_script(
+            'tcb',
+            plugin_dir_url( __FILE__ ) . 'js/tcb-plugin.js',
+            array(),
+            $this->version,
+            FALSE
         );
     }
 
+//    /**
+//     * Loads the textdomain for translations
+//     */
+//    public function load_textdomain() {
+//        load_plugin_textdomain( 'tcb', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
+//    }
+
     /**
-     * Requires the file that is used to display the user interface of the post meta box.
+     * Register a custom menu page.
      */
-    public function render_meta_box() {
-        require_once plugin_dir_path( __FILE__ ) . 'partials/tcb-tennis.php';
+    function register_admin_menu() {
+
+        add_menu_page(
+            __('page-title', 'tcb'),
+            __('TC Bodenwerder', 'tcb'),
+            'manage_options',
+            'tcb',
+            'include_admin_page',
+            'dashicons-awards',
+            50                              // Reihenfolge, in der der Menüpunkt erscheint
+        );
+
+        add_submenu_page(
+            'tcb',
+            __('page-title', 'tcb'),
+            __('Mannschaften', 'tcb'),
+            'manage_options',
+            'Mannschaft',
+            'include_submenu_page'
+        );
+
+        function include_admin_page() {
+            include(plugin_dir_path( __FILE__ ).'../templates/spielplan.php');
+        }
+
+        function include_submenu_page() {
+            include(plugin_dir_path( __FILE__ ).'../templates/mannschaften.php');
+        }
+
     }
-
 }
-?>
-
-
-<!---->
-<!---->
-<!---->
-<!--<div class="wrap">-->
-<!--    <h2>--><?php //esc_attr_e( 'Spielplan', 'wp_admin_style' ); ?><!--</h2>-->
-<!---->
-<!--    <table></table>-->
-<!---->
-<!--    <input type="text" value="Termin" class="regular-text" />-->
-<!--    <input type="text" value="Heim-Mannschaft" class="regular-text" />-->
-<!--    <input type="text" value="Gast-Mannschaft" class="regular-text" />-->
-<!--    <input type="text" value="Gats-Mannschaft" class="regular-text" />-->
-<!---->
-<!--</div>-->
-<!---->
-<!--<h2>Einzel</h2>-->
-<!--<table class="widefat">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th class="row-title">Name</th>-->
-<!--        <th>--><?php //esc_attr_e( 'Table header cell #2', 'wp_admin_style' ); ?><!--</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr>-->
-<!--        <td class="row-title"><label for="tablecell">--><?php //esc_attr_e(
-//                    'Table Cell #1, with label', 'wp_admin_style'
-//                ); ?><!--</label></td>-->
-<!--        <td>--><?php //esc_attr_e( 'Table Cell #2', 'wp_admin_style' ); ?><!--</td>-->
-<!--    </tr>-->
-<!--    <tr class="alternate">-->
-<!--        <td class="row-title"><label for="tablecell">--><?php //esc_attr_e(
-//                    'Table Cell #3, with label and class', 'wp_admin_style'
-//                ); ?><!-- <code>alternate</code></label></td>-->
-<!--        <td>--><?php //esc_attr_e( 'Table Cell #4', 'wp_admin_style' ); ?><!--</td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td class="row-title">--><?php //esc_attr_e( 'Table Cell #5, without label', 'wp_admin_style' ); ?><!--</td>-->
-<!--        <td>--><?php //esc_attr_e( 'Table Cell #6', 'wp_admin_style' ); ?><!--</td>-->
-<!--    </tr>-->
-<!--    <tr class="alt">-->
-<!--        <td class="row-title">--><?php //esc_attr_e(
-//                'Table Cell #7, without label and with class', 'wp_admin_style'
-//            ); ?><!-- <code>alt</code></td>-->
-<!--        <td>--><?php //esc_attr_e( 'Table Cell #8', 'wp_admin_style' ); ?><!--</td>-->
-<!--    </tr>-->
-<!--    <tr class="form-invalid">-->
-<!--        <td class="row-title">--><?php //esc_attr_e(
-//                'Table Cell #9, without label and with class', 'wp_admin_style'
-//            ); ?><!-- <code>form-invalid</code></td>-->
-<!--        <td>--><?php //esc_attr_e( 'Table Cell #10', 'wp_admin_style' ); ?><!--</td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--    <tfoot>-->
-<!--    <tr>-->
-<!--        <th class="row-title">--><?php //esc_attr_e( 'Table header cell #1', 'wp_admin_style' ); ?><!--</th>-->
-<!--        <th>--><?php //esc_attr_e( 'Table header cell #2', 'wp_admin_style' ); ?><!--</th>-->
-<!--    </tr>-->
-<!--    </tfoot>-->
-<!--</table>-->
-<!--<br>-->
-<!---->
-<!--<h2>Doppel</h2>-->
-<!--<input class="button-primary" type="submit" name="Example" value="--><?php //esc_attr_e( 'Spielplan erstellen','tcb' ); ?><!--" />-->

@@ -1,37 +1,5 @@
 <?php
 
-/**
-Plugin Name: Tennisclub Bodenwerder e.V.
-Plugin URI: http://www.raumvisionen.de
-Description: Plugin zur Verwaltung von Spielplänen und Spielern des Vereins ***
-Version: 1.0
-Author: Alexander Siewert
-Author URI: http://www.raumvisionen.de
-Text Domain: tcb
-Domain Path:/locale/
-License: GPL2
-Licence URI: http://www.gnu.org/licenses/gpl-2.0.txt
-*/
-
-
-//
-//if ( ! defined( 'WPINC' ) ) {
-//    die;
-//}
-
-////require_once plugin_dir_path( __FILE__ ) . 'includes/class-single-post-meta-manager.php';
-//
-//function run-tbc-spielplan() {
-//
-//    $tbc = new tbc-spielplan();
-//    $tbc->run();
-//
-//}
-
-run_single_post_meta_manager();
-
-
-
 
 register_activation_hook( __FILE__, 'tcb_create_plugin_tables' );
 /**
