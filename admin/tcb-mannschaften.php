@@ -1,17 +1,20 @@
 <?php
 
+echo 'ddddd';
+
 class Tcb_Mannschaften {
 
-    private $name = '';
-    private $url = '';
-    private $mitglieder = '';
+    private $name        = '';
+    private $url         = '';
+    private $mitglieder  = '';
 
 
     public  function __construct(){
 
     }
 
-    public function getMannschaften() {
+    public function getMannschaft() {
+
 
     }
 
@@ -19,4 +22,7 @@ class Tcb_Mannschaften {
 
     }
 
+
+
 }
+

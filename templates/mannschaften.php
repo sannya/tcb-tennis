@@ -56,3 +56,17 @@
 <h2>Doppel</h2>
 <input class="button-primary" type="submit" name="Example" value="<?php esc_attr_e( 'Spielplan erstellen','tcb' ); ?>" />
 </div>
+
+
+
+<?php
+global $wpdb;
+$results = $wpdb->get_results("SELECT * FROM wp_tcb_mannschaften");
+
+foreach($results as $k => $cur)
+{
+    echo $cur->mannschaft_url;
+}
+
+ ?>
+
