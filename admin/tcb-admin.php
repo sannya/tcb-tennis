@@ -71,7 +71,7 @@ class Tcb_Admin {
     function register_admin_menu() {
 
         add_menu_page(
-            __('page-title', 'tcb'),
+            __('TC Bodenwerder', 'tcb'),
             __('TC Bodenwerder', 'tcb'),
             'manage_options',
             'tcb',
